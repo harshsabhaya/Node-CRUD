@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 class AppError extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -44,6 +46,10 @@ function globalErrorHandler(error, req, res, next) {
 function asyncErrorHandler(func) {
   return (req, res, next) => {
     func(req, res, next).catch((err) => {
+      if (err instanceof mongoose.CastError) {
+        next(new AppError('Invalid request', 400));
+        return;
+      }
       next(err);
     });
   };

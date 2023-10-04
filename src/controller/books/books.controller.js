@@ -66,9 +66,8 @@ const getBooksController = getFile((req, res, next, file) => {
     return;
   } else if (Object.keys(req.query)?.length) {
     const query = {};
-    console.log('req.query', req.query);
     Object.entries(req.query).forEach(([type, value]) => {
-      if (FILTER_KEYWORD.includes(type)) {
+      if (FILTER_KEYWORD.includes(type) && value) {
         query[type] = type === 'year' ? Number(value) : value;
       }
     });
