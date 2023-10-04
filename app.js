@@ -11,6 +11,8 @@ const logs = require('./src/controller/logs');
 const error = require('./src/controller/error');
 const books = require('./src/controller/books/books.route');
 const products = require('./src/controller/product/products.route');
+const location = require('./src/controller/location/location.router');
+const items = require('./src/controller/items/items.router');
 
 const { globalErrorHandler, AppError } = require('./src/utils/errorController');
 const { transports, format } = require('winston');
@@ -41,6 +43,8 @@ app.use('/birds', birds);
 app.use('/logs', logs);
 app.use('/api/books', books);
 app.use('/api/products', products);
+app.use('/api/location', location);
+app.use('/api/items', items);
 
 app.all('*', (req, res, next) => {
   const error = new AppError('Path is not available', 404);

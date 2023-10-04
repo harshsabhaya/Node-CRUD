@@ -47,7 +47,7 @@ function asyncErrorHandler(func) {
   return (req, res, next) => {
     func(req, res, next).catch((err) => {
       if (err instanceof mongoose.CastError) {
-        next(new AppError('Invalid request', 400));
+        next(new AppError(err.message, 400));
         return;
       }
       next(err);
